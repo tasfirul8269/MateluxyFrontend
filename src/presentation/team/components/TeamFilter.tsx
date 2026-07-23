@@ -60,25 +60,8 @@ export const TeamFilter = ({
                     </Box>
                 </Box>
 
-                {/* Center: Tabs */}
-                <Box className="bg-[#F8F8F8] p-1.5 rounded-full flex relative">
-                    <Box
-                        className={`absolute top-1.5 bottom-1.5 w-[90px] bg-white rounded-full shadow-sm transition-all duration-300 ease-in-out ${activeTab === 'agents' ? 'left-1.5' : 'left-[94px]'}`}
-                    />
-                    <Box
-                        className={`relative z-10 px-8 py-2.5 rounded-full cursor-pointer transition-colors ${activeTab === 'agents' ? 'text-black font-semibold' : 'text-gray-500 font-medium'}`}
-                        onClick={() => setActiveTab('agents')}
-                    >
-                        <Text className="text-sm">Agents</Text>
-                    </Box>
-                    <Box
-                        className={`relative z-10 px-8 py-2.5 rounded-full cursor-pointer transition-colors ${activeTab === 'team' ? 'text-black font-semibold' : 'text-gray-500 font-medium'}`}
-                        onClick={() => setActiveTab('team')}
-                    >
-                        <Text className="text-sm">Team</Text>
-                    </Box>
-                </Box>
-
+                {/* Spacer for center if needed, or just let flex handle it */}
+                <Box className="flex-1"></Box>
                 {/* Right: Search */}
                 <Box className="relative w-full md:w-[320px]">
                     <input
