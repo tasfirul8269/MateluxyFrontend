@@ -41,7 +41,7 @@ const PropertySearchBar = () => {
                 const category = activeTab === 0 ? 'Buy' : 'Rent';
 
                 // Use the API URL from services or default
-                const response = await fetch(`http://127.0.0.1:6001/properties`);
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:6001'}/properties`);
                 if (!response.ok) {
                     throw new Error(`Failed to fetch properties`);
                 }

@@ -113,7 +113,7 @@ export const MapViewPage = ({ purpose }: MapViewPageProps) => {
                 setLoading(true);
                 const status = 'published';
                 const res = await axios.get(
-                    `http://127.0.0.1:6001/properties?purpose=${purpose}&status=${status}&category=residential`
+                    `${process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:6001'}/properties?purpose=${purpose}&status=${status}&category=residential`
                 );
                 const rawProperties = res.data.data || [];
 

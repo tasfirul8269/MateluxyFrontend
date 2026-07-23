@@ -32,7 +32,7 @@ const BuyPageContent = ({ category = "residential" }: { category?: string }) => 
                 const purpose = pathname.includes('/rent') ? 'rent' : 'buy';
                 const status = 'published';
 
-                const res = await axios.get(`http://127.0.0.1:6001/properties?purpose=${purpose}&status=${status}&category=${category}`);
+                const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:6001'}/properties?purpose=${purpose}&status=${status}&category=${category}`);
                 const rawProperties = res.data.data || [];
 
                 // Map CRM fields to frontend fields

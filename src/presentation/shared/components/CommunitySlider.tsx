@@ -29,7 +29,7 @@ const CommunitySlider = ({ onCommunityClick }: CommunitySliderProps) => {
         const fetchCommunities = async () => {
             try {
                 // Try to fetch top locations from CRM
-                const res = await axios.get('http://127.0.0.1:6001/properties/top-locations?viewBy=listing');
+                const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:6001'}/properties/top-locations?viewBy=listing`);
                 if (res.data && Array.isArray(res.data) && res.data.length > 0) {
                     setCommunities(res.data.map((loc: any) => ({ name: loc.name })));
                 }

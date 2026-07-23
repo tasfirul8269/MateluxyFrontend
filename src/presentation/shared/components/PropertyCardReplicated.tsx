@@ -27,7 +27,7 @@ const PropertyCardReplicated = ({ property, loading, error }: PropertyCardReplic
                 setAgentData(property.agent);
             } else if (typeof property.agent === 'string') {
                 setAgentLoading(true);
-                axios.get(`http://127.0.0.1:6001/api/agents/${property.agent}`)
+                axios.get(`${process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:6001'}/agents/${property.agent}`)
                     .then(res => {
                         setAgentData(res.data);
                         setAgentLoading(false);
