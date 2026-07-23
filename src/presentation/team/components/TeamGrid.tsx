@@ -20,18 +20,15 @@ export const TeamGrid = ({ searchQuery = '', department = 'All', activeTab = 'ag
     const ITEMS_PER_PAGE = 8; // 2 rows * 4 columns
 
     useEffect(() => {
-        // Force use of mock data for development/demo purposes to show pagination
-        console.log('Total Agents:', MOCK_AGENTS.length);
-        setMembers(MOCK_AGENTS);
-        setLoading(false);
-
-        /* 
         const fetchAgents = async () => {
             try {
                 const data = await api.getAgents();
-                setMembers(data);
+                // Filter out inactive agents or specific filtering if needed, 
+                // otherwise just set members to the fetched data
+                setMembers(data || []);
             } catch (error) {
                 console.error('Failed to fetch agents:', error);
+                // Fallback to mock data only if API fails
                 setMembers(MOCK_AGENTS);
             } finally {
                 setLoading(false);
@@ -39,7 +36,6 @@ export const TeamGrid = ({ searchQuery = '', department = 'All', activeTab = 'ag
         };
 
         fetchAgents();
-        */
     }, []);
 
 
