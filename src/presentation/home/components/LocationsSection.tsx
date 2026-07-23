@@ -484,7 +484,7 @@ export const LocationsSection = ({
                                                 {path && <Polygon
                                                     onClick={() => handleLocationClick(loc)}
                                                     paths={path}
-                                                    options={{ strokeColor: '#B8B8B8', strokeOpacity: 0, strokeWeight: 2, fillColor: loc.color, fillOpacity: 0.15, icons: [{ icon: { path: 'M 0,-1 0,1', strokeOpacity: 1, strokeColor: '#B8B8B8', scale: 4 }, offset: '0', repeat: '20px' }] }}
+                                                    options={{ strokeColor: '#B8B8B8', strokeOpacity: 0, strokeWeight: 2, fillColor: loc.color, fillOpacity: 0.15 }}
                                                 />}
                                                 <OverlayView position={{ lat: loc.latitude, lng: loc.longitude }} mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}>
                                                     <Box
