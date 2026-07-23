@@ -43,7 +43,7 @@ export const PropertyCard = ({
         <Box className="relative w-full aspect-[1.548/1] rounded-[13px] overflow-hidden bg-gray-100">
             <Image
                 src={image}
-                alt={title}
+                alt={title || 'Property Image'}
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
             />
@@ -141,7 +141,7 @@ export const PropertyCard = ({
                             <Box className="w-[100px] h-[35px] relative opacity-90">
                                 <Image
                                     src={developer.logo}
-                                    alt={developer.name}
+                                    alt={developer.name || 'Developer Logo'}
                                     fill
                                     className="object-contain object-left"
                                 />
@@ -155,7 +155,7 @@ export const PropertyCard = ({
                         <Box className="relative h-[50px] w-[50px] rounded-full overflow-hidden border border-gray-100">
                             <Image
                                 src={agent.avatar}
-                                alt={agent.name}
+                                alt={agent.name || 'Agent Avatar'}
                                 fill
                                 className="object-cover"
                             />

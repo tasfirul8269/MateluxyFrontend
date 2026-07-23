@@ -19,10 +19,10 @@ export const PropertyManagementDetails = () => {
             <Box className="max-w-7xl mx-auto relative z-10 space-y-24">
 
                 {/* Row 1: Image Left, Text Right */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-20 items-center">
                     {/* Image Column */}
-                    <div className="relative h-[300px] md:h-[400px] lg:h-[500px] w-full rounded-[40px] overflow-hidden shadow-lg">
-                        <div className="absolute inset-0 bg-gray-300 flex items-center justify-center text-gray-500 font-medium">
+                    <div className="relative h-[300px] md:h-[400px] lg:h-[450px] w-full rounded-[16px] overflow-hidden shadow-md">
+                        <div className="absolute inset-0 bg-gray-200 flex items-center justify-center text-gray-500 font-medium">
                             [Team/Model Construction Image Placeholder]
                         </div>
                         {/* UNCOMMENT WHEN ASSET IS AVAILABLE
@@ -37,11 +37,11 @@ export const PropertyManagementDetails = () => {
 
                     {/* Content Column */}
                     <div className="flex flex-col gap-6">
-                        <Text as="h2" className="text-[32px] md:text-[40px] font-bold text-black leading-tight">
+                        <Text as="h2" className="text-[32px] md:text-[36px] font-medium text-black leading-tight">
                             Choosing The Right Property<br className="hidden lg:block" /> Management Partner
                         </Text>
 
-                        <div className="space-y-6 text-gray-600 text-sm md:text-base leading-relaxed text-justify">
+                        <div className="space-y-6 text-[#4A4A4A] text-[15px] leading-[1.8] font-normal text-left">
                             <p>
                                 Entrusting Your Rental Property To The Right Agency Is A Big Decision. At Mateluxy Real Estate, We Combine Professionalism, RERA Certification, And A Proven Track Record Of Five-Star Client Satisfaction To Give You Absolute Peace Of Mind.
                             </p>
@@ -56,14 +56,14 @@ export const PropertyManagementDetails = () => {
                 </div>
 
                 {/* Row 2: Text Left, Image Right */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-20 items-center">
                     {/* Content Column (Order 2 on mobile, Order 1 on desktop) */}
                     <div className="flex flex-col gap-6 order-2 lg:order-1">
-                        <Text as="h2" className="text-[32px] md:text-[40px] font-bold text-black leading-tight">
+                        <Text as="h2" className="text-[32px] md:text-[36px] font-medium text-black leading-tight">
                             What To Expect With Our Property<br className="hidden lg:block" /> Management
                         </Text>
 
-                        <div className="space-y-6 text-gray-600 text-sm md:text-base leading-relaxed text-justify">
+                        <div className="space-y-6 text-[#4A4A4A] text-[15px] leading-[1.8] font-normal text-left">
                             <p>
                                 At Mateluxy, We Offer A Range Of Premium Property Management Packages For Villas, Apartments, And Entire Buildings — Or You Can Design A Custom Management Solution Tailored To Your Property's Unique Needs.
                             </p>
@@ -77,15 +77,15 @@ export const PropertyManagementDetails = () => {
                     </div>
 
                     {/* Image Column (Order 1 on mobile, Order 2 on desktop) */}
-                    <div className="relative h-[300px] md:h-[400px] lg:h-[500px] w-full rounded-[40px] overflow-hidden shadow-lg order-1 lg:order-2">
-                        <div className="absolute inset-0 bg-gray-300 flex items-center justify-center text-gray-500 font-medium">
+                    <div className="relative h-[300px] md:h-[400px] lg:h-[450px] w-full rounded-[16px] overflow-hidden shadow-md order-1 lg:order-2">
+                        <div className="absolute inset-0 bg-gray-200 flex items-center justify-center text-gray-500 font-medium">
                             [Agent with Play Button Image Placeholder]
                         </div>
 
                         {/* Play Button Overlay (Simulated) */}
                         <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-                            <div className="w-16 h-16 rounded-full border-2 border-white flex items-center justify-center backdrop-blur-sm bg-white/10">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="w-8 h-8 ml-1">
+                            <div className="w-16 h-16 rounded-full border-[1.5px] border-white flex items-center justify-center backdrop-blur-md bg-black/10 shadow-[0_4px_15px_rgba(0,0,0,0.1)]">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="w-6 h-6 ml-1">
                                     <path d="M8 5v14l11-7z" />
                                 </svg>
                             </div>

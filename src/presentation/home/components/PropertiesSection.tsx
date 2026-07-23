@@ -50,8 +50,10 @@ export const PropertiesSection = () => {
                     }));
                 } else {
                     // Buy or Rent
+                    // Buy or Rent
                     const res = await api.getProperties({
-                        purpose: activeTab, // Correctly map 'Buy'/'Rent' to purpose
+                        purpose: activeTab === 'Buy' ? 'sale' : 'rent', // Explicitly map to 'sale' (backend checks for sale/sell/buy) or 'rent'
+                        category: 'residential', // Match BuyPage logic
                         limit: 6,
                         sortBy: 'price',
                         sortOrder: 'desc'

@@ -10,8 +10,7 @@ import usePlacesAutocomplete, {
     getLatLng,
 } from "use-places-autocomplete";
 import { useRouter } from 'next/navigation';
-
-const libraries: ("places" | "geometry")[] = ["places", "geometry"];
+import { GOOGLE_MAPS_LIBRARIES } from '../../../lib/googleMapsConfig';
 
 const SearchBar = () => {
     const [activeTab, setActiveTab] = useState('Rent');
@@ -23,7 +22,7 @@ const SearchBar = () => {
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
-        libraries,
+        libraries: GOOGLE_MAPS_LIBRARIES,
     });
 
     const handleSearch = () => {
@@ -251,7 +250,11 @@ const CityAutocomplete = ({ onLocationSelect }: CityAutocompleteProps) => {
     );
 };
 
-export const HeroSection = () => {
+interface HeroSectionProps {
+    showSearchBar?: boolean;
+}
+
+export const HeroSection = ({ showSearchBar = true }: HeroSectionProps) => {
     return (
         <Box
             as="section"
@@ -317,7 +320,7 @@ export const HeroSection = () => {
             </Flex>
 
             {/* Floating Search Bar - Positioned relative to main section */}
-            <SearchBar />
+            {showSearchBar && <SearchBar />}
         </Box>
     );
 };

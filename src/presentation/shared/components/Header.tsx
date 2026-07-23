@@ -34,13 +34,33 @@ export const Header = ({ theme = 'light' }: HeaderProps) => {
                 <Box className={`hidden lg:block absolute -translate-x-1/2 transition-all duration-300 ease-out ${isSearchExpanded ? 'left-[44%]' : 'left-1/2'}`}>
                     <Flex className={`h-[54px] ${isDark ? 'bg-[#F7F7F7]' : 'bg-[#ffffff]/40 backdrop-blur-[5px]'} rounded-full p-1.5 items-center`}>
                         {['Buy', 'Rent', 'Off Plan', 'Commercial', 'Contact', 'Team', 'News'].map((item) => {
-                            // Determine Route
-                            const href = `/${item.toLowerCase().replace(' ', '-')}`;
+                            const isCommercialHover = item === 'Commercial';
+                            const href = isCommercialHover ? '#' : `/${item.toLowerCase().replace(' ', '-')}`;
+                            const isCommercialActive = pathname.includes('/commercial');
+                            const isActive = isCommercialHover ? isCommercialActive : pathname === href;
 
-                            // Check Active State
-                            // Homepage ('/') should have NO selection as per user request
-                            // Other pages check exact match
-                            const isActive = pathname === href;
+                            if (isCommercialHover) {
+                                return (
+                                    <Box key={item} className="relative group">
+                                        <Box
+                                            className={`rounded-full px-6 py-2.5 h-[42px] flex items-center cursor-pointer transition-all duration-300 ${isActive
+                                                ? 'bg-white shadow-sm'
+                                                : 'hover:bg-white/20'
+                                                }`}
+                                        >
+                                            <Text
+                                                className={`${isActive ? 'text-black font-semibold' : `${textColor} font-medium`} text-[15px] font-[family-name:var(--font-montserrat)]`}
+                                            >
+                                                {item}
+                                            </Text>
+                                        </Box>
+                                        <Box className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[160px] bg-white rounded-2xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 overflow-hidden flex flex-col pt-2 pb-2">
+                                            <Link href="/commercial/sell" className="px-6 py-3 hover:bg-gray-50 text-[14px] font-medium text-gray-700 hover:text-black transition-colors w-full text-center">For Sell</Link>
+                                            <Link href="/commercial/rent" className="px-6 py-3 hover:bg-gray-50 text-[14px] font-medium text-gray-700 hover:text-black transition-colors w-full text-center">For Rent</Link>
+                                        </Box>
+                                    </Box>
+                                );
+                            }
 
                             return (
                                 <Link key={item} href={href} passHref>

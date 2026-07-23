@@ -99,7 +99,7 @@ export const TeamGrid = ({ searchQuery = '', department = 'All', activeTab = 'ag
                     <Text className="text-lg">No agents found matching your criteria.</Text>
                 </Box>
             ) : (
-                <div className="flex flex-wrap justify-center gap-y-6 gap-x-[21px]">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {currentMembers.map((member) => (
                         <MemberCard
                             key={member.id}
@@ -115,13 +115,13 @@ export const TeamGrid = ({ searchQuery = '', department = 'All', activeTab = 'ag
 
             {/* Pagination Controls */}
             {totalPages > 1 && (
-                <Flex className="justify-center mt-16 gap-4 items-center">
+                <Flex className="justify-center mt-16 gap-3 items-center">
                     {/* Previous Button */}
                     <Box
                         onClick={() => handlePageChange(currentPage - 1)}
-                        className={`w-6 h-6 flex items-center justify-center cursor-pointer transition-all duration-300 ${currentPage === 1 ? 'text-gray-300 pointer-events-none' : 'text-[#DFDFDF] hover:text-black'}`}
+                        className={`w-8 h-8 flex items-center justify-center cursor-pointer transition-all duration-300 ${currentPage === 1 ? 'text-gray-300 pointer-events-none' : 'text-[#BBBBBB] hover:text-black'}`}
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="15 18 9 12 15 6"></polyline>
                         </svg>
                     </Box>
@@ -132,10 +132,10 @@ export const TeamGrid = ({ searchQuery = '', department = 'All', activeTab = 'ag
                             key={page}
                             onClick={() => handlePageChange(page)}
                             className={`rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 ${currentPage === page
-                                ? 'w-[60px] h-[60px] bg-[#FF1111] text-white text-[25px]'
-                                : 'w-[55px] h-[55px] bg-[#E2E2E2] text-[#2E2E2E] text-[20px] hover:bg-gray-300'
+                                ? 'w-[48px] h-[48px] bg-[#FF0000] text-white text-[16px] font-medium'
+                                : 'w-[48px] h-[48px] bg-[#F2F2F2] text-[#333333] text-[16px] font-normal hover:bg-gray-200'
                                 }`}
-                            style={{ fontFamily: 'var(--font-montserrat)', fontWeight: 400 }}
+                            style={{ fontFamily: 'var(--font-montserrat)' }}
                         >
                             {page}
                         </Box>
@@ -144,9 +144,9 @@ export const TeamGrid = ({ searchQuery = '', department = 'All', activeTab = 'ag
                     {/* Next Button */}
                     <Box
                         onClick={() => handlePageChange(currentPage + 1)}
-                        className={`w-6 h-6 flex items-center justify-center cursor-pointer transition-all duration-300 ${currentPage === totalPages ? 'text-gray-300 pointer-events-none' : 'text-[#DFDFDF] hover:text-black'}`}
+                        className={`w-8 h-8 flex items-center justify-center cursor-pointer transition-all duration-300 ${currentPage === totalPages ? 'text-gray-300 pointer-events-none' : 'text-[#BBBBBB] hover:text-black'}`}
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="9 18 15 12 9 6"></polyline>
                         </svg>
                     </Box>

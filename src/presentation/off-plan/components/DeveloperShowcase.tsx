@@ -1,25 +1,28 @@
-'use client';
-
 import { Box, Flex, Text } from '@frooxi-labs/adaptive-ui';
 import Image from 'next/image';
-
-const DEVELOPER_LOGOS = [
-    { name: "OBHA", logo: "/developers/obha.png" },
-    { name: "LEOS", logo: "/developers/leos.png" },
-    { name: "WASL ASSET GREENS", logo: "/developers/wasl.png" },
-    { name: "CityView", logo: "/developers/cityview.png" },
-    { name: "Dubai Holding", logo: "/developers/dubai_holding.png" },
-    { name: "IMAN", logo: "/developers/iman.png" },
-    { name: "GP", logo: "/developers/gp.png" },
-    { name: "Developer", logo: "/developers/developer.png" },
-];
+import { useEffect, useState } from 'react';
+import { api, Developer } from '../../../services/api';
 
 export const DeveloperShowcase = () => {
+    const [developers, setDevelopers] = useState<Developer[]>([]);
+
+    useEffect(() => {
+        const fetchDevelopers = async () => {
+            try {
+                const data = await api.getDevelopers();
+                setDevelopers(data);
+            } catch (error) {
+                console.error('Error fetching developers:', error);
+            }
+        };
+        fetchDevelopers();
+    }, []);
+
     return (
         <Box className="w-full py-16 bg-white">
             <Box className="px-4 md:px-8 xl:pl-[94px]">
                 {/* Header Section */}
-                <Flex className="justify-between items-start mb-12">
+                <Flex className="justify-between items-start mb-12 flex-col md:flex-row gap-4">
                     <Box>
                         <Text
                             className="text-[45px] font-semibold text-black mb-2 leading-tight"
@@ -45,19 +48,25 @@ export const DeveloperShowcase = () => {
 
                 {/* Developer Logos */}
                 <Flex className="gap-12 items-center justify-start flex-wrap">
-                    {DEVELOPER_LOGOS.map((developer, idx) => (
-                        <Box
-                            key={idx}
-                            className="relative h-[60px] w-[120px] grayscale hover:grayscale-0 transition-all cursor-pointer opacity-70 hover:opacity-100"
-                        >
-                            <Image
-                                src={developer.logo}
-                                alt={developer.name}
-                                fill
-                                className="object-contain"
-                            />
-                        </Box>
-                    ))}
+                    {developers.length > 0 ? (
+                        developers.map((developer) => (
+                            developer.logoUrl ? (
+                                <Box
+                                    key={developer.id}
+                                    className="relative h-[60px] w-[120px] grayscale hover:grayscale-0 transition-all cursor-pointer opacity-70 hover:opacity-100"
+                                >
+                                    <Image
+                                        src={developer.logoUrl}
+                                        alt={developer.name}
+                                        fill
+                                        className="object-contain"
+                                    />
+                                </Box>
+                            ) : null
+                        ))
+                    ) : (
+                        <Text>Loading developers...</Text>
+                    )}
                 </Flex>
 
                 {/* Pagination Dots */}

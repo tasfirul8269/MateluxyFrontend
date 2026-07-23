@@ -4,6 +4,7 @@ import { Box, Text, Flex } from '@frooxi-labs/adaptive-ui';
 import Image from 'next/image';
 
 export interface OffPlanCardProps {
+    id?: string | number;
     image: string;
     title: string;
     location: string;
@@ -18,6 +19,7 @@ export interface OffPlanCardProps {
 }
 
 export const OffPlanCard = ({
+    id,
     image,
     title,
     location,
@@ -86,13 +88,11 @@ export const OffPlanCard = ({
                 </Flex>
 
                 {/* Info Grid - Two Separate Boxes */}
-                <Flex className="gap-[10px] mb-4 items-center">
+                <Flex className="gap-[10px] mb-4 items-center justify-between">
                     <Box className="text-center bg-[#F3F3F3] rounded-[8px] p-3 w-[183.5px] h-[55px] flex flex-col justify-center">
                         <Text className="text-[15px] text-[#777777] mb-0.5 font-medium" style={{ fontFamily: 'Montserrat, sans-serif' }}>Area (sq.ft)</Text>
                         <Text className="text-[16px] font-bold text-black" style={{ fontFamily: 'Montserrat, sans-serif' }}>{area}</Text>
                     </Box>
-                    {/* Divider */}
-                    <Box className="w-[2px] h-[14px] bg-[#F3F3F3]" />
                     <Box className="text-center bg-[#F3F3F3] rounded-[8px] p-3 w-[183.5px] h-[55px] flex flex-col justify-center">
                         <Text className="text-[15px] text-[#777777] mb-0.5 font-medium" style={{ fontFamily: 'Montserrat, sans-serif' }}>Completion</Text>
                         <Text className="text-[16px] font-bold text-black" style={{ fontFamily: 'Montserrat, sans-serif' }}>{completion}</Text>

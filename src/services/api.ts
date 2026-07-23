@@ -1,4 +1,4 @@
-const BASE_URL = 'http://127.0.0.1:6001';
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:6001';
 
 export interface Property {
     id: string;
@@ -45,6 +45,8 @@ export interface OffPlanProperty {
     isActive: boolean;
     createdAt: string;
     projectStatus?: string;
+    handoverDate?: string;
+    emirate?: string;
 }
 
 interface FetchPropertiesParams {
@@ -56,6 +58,7 @@ interface FetchPropertiesParams {
     sortBy?: 'price' | 'date' | 'name';
     sortOrder?: 'asc' | 'desc';
     propertyType?: string;
+    location?: string;
 }
 
 interface FetchOffPlanParams {
@@ -63,6 +66,7 @@ interface FetchOffPlanParams {
     page?: number;
     sortBy?: 'price' | 'date' | 'name';
     sortOrder?: 'asc' | 'desc';
+    propertyType?: string;
 }
 
 export const api = {
@@ -79,6 +83,7 @@ export const api = {
         if (params?.sortBy) query.append('sortBy', params.sortBy);
         if (params?.sortOrder) query.append('sortOrder', params.sortOrder);
         if (params?.propertyType) query.append('propertyTypes', params.propertyType);
+        if (params?.location) query.append('location', params.location);
 
         try {
             const res = await fetch(`${BASE_URL}/properties?${query.toString()}`, {
@@ -99,6 +104,7 @@ export const api = {
         if (params?.page) query.append('page', params.page.toString());
         if (params?.sortBy) query.append('sortBy', params.sortBy);
         if (params?.sortOrder) query.append('sortOrder', params.sortOrder);
+        if (params?.propertyType) query.append('propertyType', params.propertyType);
 
         try {
             const res = await fetch(`${BASE_URL}/off-plan-properties?${query.toString()}`, {
@@ -144,8 +150,40 @@ export const api = {
         });
         if (!res.ok) throw new Error('Failed to fetch agents');
         return res.json();
+    },
+
+    getAgentsByArea: async (area: string): Promise<Agent[]> => {
+        try {
+            const res = await fetch(`${BASE_URL}/agents/by-area?area=${encodeURIComponent(area)}`, {
+                next: { revalidate: 60 },
+            });
+            if (!res.ok) throw new Error('Failed to fetch agents by area');
+            return res.json();
+        } catch (error) {
+            console.error('Error fetching agents by area:', error);
+            return [];
+        }
+    },
+
+    getDevelopers: async (): Promise<Developer[]> => {
+        try {
+            const res = await fetch(`${BASE_URL}/developers/public`, {
+                next: { revalidate: 300 }, // Cache for 5 minutes
+            });
+            if (!res.ok) throw new Error('Failed to fetch developers');
+            return res.json();
+        } catch (error) {
+            console.error('Error fetching developers:', error);
+            return [];
+        }
     }
 };
+
+export interface Developer {
+    id: string;
+    name: string;
+    logoUrl?: string;
+}
 
 export interface Agent {
     id: string;

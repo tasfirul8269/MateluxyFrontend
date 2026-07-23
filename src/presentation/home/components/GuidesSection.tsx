@@ -74,7 +74,7 @@ export const GuidesSection = () => {
                             return (
                                 <Box
                                     key={agent?.id || index}
-                                    className={`relative w-[192px] h-[243px] rounded-[24px] overflow-hidden shadow-2xl flex-shrink-0 ${rotationClass}`}
+                                    className={`relative w-[192px] h-[243px] rounded-[24px] overflow-hidden shadow-2xl flex-shrink-0 ${rotationClass} transition-all duration-300 ease-in-out hover:scale-110 hover:rotate-0 hover:z-[100] cursor-pointer`}
                                     style={{
                                         zIndex: index, // Stack natural usage
                                         boxShadow: '0 20px 40px -10px rgba(0,0,0,0.4)'
