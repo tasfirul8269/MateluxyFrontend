@@ -5,11 +5,11 @@ import { Header } from '@/src/presentation/shared/components/Header';
 import { PropertyFilter } from '@/src/presentation/shared/components/PropertyFilter';
 import { PropertyCard, PropertyCardProps } from '@/src/presentation/shared/components/PropertyCard';
 import { PropertyCardSkeleton } from '@/src/presentation/shared/components/PropertyCardSkeleton';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { api, Property, OffPlanProperty } from '@/src/services/api';
 import { useSearchParams } from 'next/navigation';
 
-export default function PropertiesPage() {
+function PropertiesContent() {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
     const [sortBy, setSortBy] = useState('Newest');
@@ -252,5 +252,13 @@ export default function PropertiesPage() {
                 </Box>
             )}
         </main>
+    );
+}
+
+export default function PropertiesPage() {
+    return (
+        <Suspense fallback={<main className="bg-white min-h-screen flex items-center justify-center">Loading properties...</main>}>
+            <PropertiesContent />
+        </Suspense>
     );
 }
