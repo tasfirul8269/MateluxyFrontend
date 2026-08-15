@@ -18,7 +18,7 @@ export default function LocationSection({ property }: LocationSectionProps) {
   const embedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(locationName)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
 
   return (
-    <section id="location" className="bg-white rounded-2xl shadow-sm overflow-hidden p-8 mb-8 border border-gray-150">
+    <section id="location" className="bg-white rounded-2xl shadow-sm overflow-hidden p-8 mb-8">
       <h2 className="text-3xl font-bold text-gray-800 mb-6 flex items-center gap-2">
         <MapPin className="text-red-500" size={24} />
         Location

@@ -92,12 +92,12 @@ export default function PropertyDetailsCard({ property, agent: agentFromProps }:
 
   return (
     <motion.div 
-      className="bg-white rounded-2xl shadow-sm overflow-hidden mb-8 border border-gray-150"
+      className="bg-white rounded-2xl shadow-sm overflow-hidden mb-8"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-6 border-b border-gray-150">
+      <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-6">
         <h3 className="text-xl font-bold text-gray-800 mb-0">Additional Details</h3>
       </div>
       

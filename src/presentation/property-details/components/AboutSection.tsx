@@ -76,7 +76,7 @@ export default function AboutSection({ property }: AboutSectionProps) {
   
   return (
     <motion.section 
-      className="bg-white rounded-2xl shadow-sm overflow-hidden p-8 mb-8 border border-gray-150"
+      className="bg-white rounded-2xl shadow-sm overflow-hidden p-8 mb-8"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}

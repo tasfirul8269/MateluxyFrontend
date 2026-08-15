@@ -134,7 +134,7 @@ export const OffPlanSinglePage = ({ id }: OffPlanSinglePageProps) => {
   if (isLoading) {
     return (
       <>
-        <Header theme="light" />
+        <Header theme="dark" />
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-500 mb-4"></div>
           <p className="text-gray-600 font-medium">Loading property details...</p>
@@ -147,7 +147,7 @@ export const OffPlanSinglePage = ({ id }: OffPlanSinglePageProps) => {
   if (error || !property) {
     return (
       <>
-        <Header theme="light" />
+        <Header theme="dark" />
         <div className="flex items-center justify-center h-screen bg-gray-50">
           <div className="text-center max-w-md p-8 bg-white rounded-2xl shadow-sm border border-gray-100">
             <div className="text-red-500 text-5xl mb-4">⚠️</div>
@@ -168,8 +168,8 @@ export const OffPlanSinglePage = ({ id }: OffPlanSinglePageProps) => {
 
   return (
     <>
-      <Header theme="light" />
-      <div className="bg-gray-50 min-h-screen pt-28 pb-12">
+      <Header />
+      <div className="bg-gray-50 min-h-screen pt-0 pb-12">
         <main className="container mx-auto px-4 max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

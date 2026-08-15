@@ -46,8 +46,8 @@ export const PropertyCard = ({
         : '#';
 
     return (
-    <Link href={href} className="block">
-    <Box className="bg-white rounded-[20px] border border-[#E6E6E6] transition-all duration-300 group flex flex-col w-full overflow-hidden cursor-pointer hover:shadow-lg p-[15px]">
+    <Link href={href} className="block w-full">
+    <Box className="bg-white rounded-[20px] shadow-md hover:shadow-xl transition-all duration-300 group flex flex-col w-full overflow-hidden cursor-pointer p-[15px]">
         {/* Image Section */}
         <Box className="relative w-full aspect-[1.548/1] rounded-[13px] overflow-hidden bg-gray-100">
             <Image

@@ -247,7 +247,7 @@ export default function PropertyHeroFixed({ property }: PropertyHeroFixedProps) 
         {/* Main Hero Banner */}
         <div className="relative">
           <div 
-            className="relative h-[65vh] md:h-[75vh] overflow-hidden rounded-[30px] group border border-gray-150"
+            className="relative h-[65vh] md:h-[75vh] overflow-hidden rounded-[30px] group"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}

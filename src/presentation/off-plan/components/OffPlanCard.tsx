@@ -3,6 +3,8 @@
 import { Box, Text, Flex } from '@frooxi-labs/adaptive-ui';
 import Image from 'next/image';
 
+import Link from 'next/link';
+
 export interface OffPlanCardProps {
     id?: string | number;
     image: string;
@@ -30,7 +32,8 @@ export const OffPlanCard = ({
     badges = []
 }: OffPlanCardProps) => {
     return (
-        <Box className="bg-white rounded-[20px] border border-[#E6E6E6] overflow-hidden hover:shadow-lg transition-shadow duration-300 group cursor-pointer w-[417px] h-[531px] flex flex-col pb-[15px]">
+        <Link href={id ? `/off-plan-single/${id}` : '#'} className="block">
+        <Box className="bg-white rounded-[20px] shadow-md hover:shadow-xl transition-shadow duration-300 group cursor-pointer w-[417px] h-[531px] flex flex-col pb-[15px]">
             {/* Image Container */}
             <Box className="relative overflow-hidden mx-auto mt-[15px] mb-[20px] rounded-[13px] w-[387px] h-[250px] shrink-0">
                 <Image
@@ -138,5 +141,6 @@ export const OffPlanCard = ({
                 </Flex>
             </Box>
         </Box>
+        </Link>
     );
 };

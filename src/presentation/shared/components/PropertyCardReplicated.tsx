@@ -61,11 +61,11 @@ const PropertyCardReplicated = ({ property, loading, error }: PropertyCardReplic
     const isVideo = (url: string) => url?.match(/\.(mp4|mov|avi)$/i);
 
     return (
-        <div className="container mx-auto p-0 bg-white rounded-xl grid md:grid-cols-2 gap-4 border border-gray-200 my-6 shadow-sm hover:shadow-md transition-all duration-300 hover:border-red-100 overflow-hidden">
+        <div className="container mx-auto p-0 bg-white rounded-xl grid md:grid-cols-2 gap-4 my-6 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
             {/* Image container with overlay */}
             <div className="relative group min-h-[300px]">
                 <Link
-                    href={`/property-details/${property._id}`}
+                    href={`/property-details/${property._id || property.id}`}
                     className="flex gap-1 rounded-md w-full h-full"
                 >
                     {/* Main Media */}

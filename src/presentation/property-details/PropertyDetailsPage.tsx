@@ -38,31 +38,47 @@ export const PropertyDetailsPage = ({ id }: PropertyDetailsPageProps) => {
 
                 // Fetch property details
                 const propertyResponse = await axios.get(`${BASE_URL}/properties/${id}`);
-                const rawProperty = propertyResponse.data;
+                const raw = propertyResponse.data;
 
-                if (!rawProperty) {
+                if (!raw) {
                     throw new Error('Property details empty');
                 }
 
-                // Map CRM fields to frontend UI expected fields
+                // Map CRM backend fields → reference frontend component field names
                 const mappedProperty = {
-                    ...rawProperty,
-                    propertyPrice: rawProperty.price,
-                    propertyAddress: rawProperty.pfLocationPath || rawProperty.address,
-                    propertyState: rawProperty.emirate,
-                    propertyBedrooms: rawProperty.bedrooms,
-                    propertyBathrooms: rawProperty.bathrooms,
-                    propertySize: rawProperty.area,
-                    propertyFeaturedImage: rawProperty.coverPhoto,
-                    media: rawProperty.mediaImages || [],
-                    agent: rawProperty.assignedAgent,
+                    ...raw,
+                    _id: raw._id || raw.id,
+                    propertyTitle: raw.propertyTitle || raw.title,
+                    propertyPrice: raw.price || raw.propertyPrice,
+                    propertyAddress: raw.pfLocationPath || raw.address || raw.propertyAddress,
+                    propertyState: raw.emirate || raw.propertyState,
+                    propertyBedrooms: raw.bedrooms || raw.propertyBedrooms,
+                    propertyBathrooms: raw.bathrooms || raw.propertyBathrooms,
+                    propertySize: raw.area || raw.propertySize,
+                    propertyFeaturedImage: raw.coverPhoto || raw.propertyFeaturedImage,
+                    propertyType: raw.propertyType,
+                    propertyDescription: raw.description || raw.propertyDescription,
+                    media: raw.mediaImages || raw.media || [],
+                    category: raw.category,
+                    purpose: raw.purpose,
+                    permitNumber: raw.permitNumber || raw.dldPermitNumber,
+                    agent: raw.assignedAgent || raw.agent,
+                    features: raw.amenities || raw.features || [],
                 };
 
                 setProperty(mappedProperty);
 
                 // If agent is populated/assigned, set agent state
-                if (mappedProperty.agent) {
+                if (mappedProperty.agent && typeof mappedProperty.agent === 'object') {
                     setAgent(mappedProperty.agent);
+                } else if (mappedProperty.agent && typeof mappedProperty.agent === 'string') {
+                    // Agent is just an ID string — fetch it
+                    try {
+                        const agentRes = await axios.get(`${BASE_URL}/agents/${mappedProperty.agent}`);
+                        if (agentRes.data) setAgent(agentRes.data);
+                    } catch (agentErr) {
+                        console.error('Error fetching agent:', agentErr);
+                    }
                 }
 
                 // Fetch related properties (same purpose and category)
@@ -77,20 +93,23 @@ export const PropertyDetailsPage = ({ id }: PropertyDetailsPageProps) => {
                             limit: 4,
                         }
                     });
-                    const rawRelated = relatedResponse.data.data || [];
-                    const filteredRelated = rawRelated
-                        .filter((p: any) => p._id !== id && p.id !== id)
+                    const rawRelated = relatedResponse.data.data || relatedResponse.data || [];
+                    const filteredRelated = (Array.isArray(rawRelated) ? rawRelated : [])
+                        .filter((p: any) => (p._id || p.id) !== id)
+                        .slice(0, 4)
                         .map((p: any) => ({
                             ...p,
-                            propertyPrice: p.price,
-                            propertyAddress: p.pfLocationPath || p.address,
-                            propertyState: p.emirate,
-                            propertyBedrooms: p.bedrooms,
-                            propertyBathrooms: p.bathrooms,
-                            propertySize: p.area,
-                            propertyFeaturedImage: p.coverPhoto,
-                            media: p.mediaImages || [],
-                            agent: p.assignedAgent,
+                            _id: p._id || p.id,
+                            propertyTitle: p.propertyTitle || p.title,
+                            propertyPrice: p.price || p.propertyPrice,
+                            propertyAddress: p.pfLocationPath || p.address || p.propertyAddress,
+                            propertyState: p.emirate || p.propertyState,
+                            propertyBedrooms: p.bedrooms || p.propertyBedrooms,
+                            propertyBathrooms: p.bathrooms || p.propertyBathrooms,
+                            propertySize: p.area || p.propertySize,
+                            propertyFeaturedImage: p.coverPhoto || p.propertyFeaturedImage,
+                            media: p.mediaImages || p.media || [],
+                            agent: p.assignedAgent || p.agent,
                         }));
                     setRelatedProperties(filteredRelated);
                 } catch (relatedError) {
@@ -113,7 +132,7 @@ export const PropertyDetailsPage = ({ id }: PropertyDetailsPageProps) => {
     if (isLoading) {
         return (
             <>
-                <Header theme="light" />
+                <Header theme="dark" />
                 <div className="flex items-center justify-center h-screen bg-gray-50">
                     <div className="text-center">
                         <div className="w-16 h-16 border-4 border-gray-200 border-t-red-500 rounded-full animate-spin mx-auto mb-4"></div>
@@ -128,7 +147,7 @@ export const PropertyDetailsPage = ({ id }: PropertyDetailsPageProps) => {
     if (error || !property) {
         return (
             <>
-                <Header theme="light" />
+                <Header theme="dark" />
                 <div className="flex items-center justify-center h-screen bg-gray-50">
                     <div className="text-center max-w-md p-8 bg-white rounded-2xl shadow-sm border border-gray-100">
                         <div className="text-red-500 text-5xl mb-4">⚠️</div>
@@ -149,8 +168,8 @@ export const PropertyDetailsPage = ({ id }: PropertyDetailsPageProps) => {
 
     return (
         <>
-            <Header theme="light" />
-            <div className="bg-gray-50 min-h-screen pt-28 pb-12">
+            <Header />
+            <div className="bg-gray-50 min-h-screen pt-0 pb-12">
                 <main className="container mx-auto px-4 max-w-7xl">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
