@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { motion } from 'framer-motion';
+import { Box } from '@frooxi-labs/adaptive-ui';
 import { Header } from '../shared/components/Header';
 import { Footer } from '../shared/components/Footer';
 
@@ -167,90 +168,88 @@ export const OffPlanSinglePage = ({ id }: OffPlanSinglePageProps) => {
   }
 
   return (
-    <>
-      <Header />
-      <div className="bg-gray-50 min-h-screen pt-0 pb-12">
-        <main className="container mx-auto px-4 max-w-7xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
+    <Box className="min-h-screen bg-gray-50 text-black font-sans relative">
+      <Header theme="dark" />
+      <main className="container mx-auto px-4 max-w-7xl pt-28 pb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <HeroBanner property={property} />
+        </motion.div>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
+          <motion.div 
+            className="order-2 lg:order-1 lg:col-span-2"
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <HeroBanner property={property} />
+            <div id="about">
+              <AboutSection property={property} />
+            </div>
+            
+            <div id="gallery">
+              <GallerySection property={property} />
+            </div>
+            
+            <div id="location">
+              <LocationSection property={property} />
+            </div>
+            
+            <div id="payment-plan">
+              <PaymentPlanSection property={property} />
+            </div>
+            
+            {/* Related Properties Section */}
+            {relatedProperties.length > 0 && (
+              <section className="bg-white rounded-[30px] border border-gray-150 overflow-hidden mb-8 p-8 shadow-sm">
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">Similar Properties</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {relatedProperties.map((relatedProperty, index) => (
+                    <motion.div 
+                      key={relatedProperty._id || relatedProperty.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 * index, duration: 0.4 }}
+                      className="bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 hover:shadow-md transition-all cursor-pointer"
+                      onClick={() => router.push(`/off-plan-single/${relatedProperty._id || relatedProperty.id}`)}
+                    >
+                      <div className="h-48 overflow-hidden relative">
+                        <img 
+                          src={relatedProperty.propertyFeaturedImage || 'https://placehold.co/600x400/eaeaea/999999?text=Property'} 
+                          alt={relatedProperty.propertyTitle} 
+                          className="w-full h-full object-cover transition-transform hover:scale-105 duration-500"
+                        />
+                      </div>
+                      <div className="p-4">
+                        <h3 className="font-semibold text-lg text-gray-800 mb-1 line-clamp-1">{relatedProperty.propertyTitle}</h3>
+                        <p className="text-gray-600 text-sm mb-2 line-clamp-1">{relatedProperty.propertyState || relatedProperty.propertyAddress}</p>
+                        <p className="text-red-500 font-medium">{formatPrice(relatedProperty.propertyPrice) || 'Price on request'}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </section>
+            )}
           </motion.div>
           
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
-            <motion.div 
-              className="order-2 lg:order-1 lg:col-span-2"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <div id="about">
-                <AboutSection property={property} />
-              </div>
-              
-              <div id="gallery">
-                <GallerySection property={property} />
-              </div>
-              
-              <div id="location">
-                <LocationSection property={property} />
-              </div>
-              
-              <div id="payment-plan">
-                <PaymentPlanSection property={property} />
-              </div>
-              
-              {/* Related Properties Section */}
-              {relatedProperties.length > 0 && (
-                <section className="bg-white rounded-[30px] border border-gray-150 overflow-hidden mb-8 p-8 shadow-sm">
-                  <h2 className="text-2xl font-bold text-gray-800 mb-6">Similar Properties</h2>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    {relatedProperties.map((relatedProperty, index) => (
-                      <motion.div 
-                        key={relatedProperty._id || relatedProperty.id}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 * index, duration: 0.4 }}
-                        className="bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 hover:shadow-md transition-all cursor-pointer"
-                        onClick={() => router.push(`/off-plan-single/${relatedProperty._id || relatedProperty.id}`)}
-                      >
-                        <div className="h-48 overflow-hidden relative">
-                          <img 
-                            src={relatedProperty.propertyFeaturedImage || 'https://placehold.co/600x400/eaeaea/999999?text=Property'} 
-                            alt={relatedProperty.propertyTitle} 
-                            className="w-full h-full object-cover transition-transform hover:scale-105 duration-500"
-                          />
-                        </div>
-                        <div className="p-4">
-                          <h3 className="font-semibold text-lg text-gray-800 mb-1 line-clamp-1">{relatedProperty.propertyTitle}</h3>
-                          <p className="text-gray-600 text-sm mb-2 line-clamp-1">{relatedProperty.propertyState || relatedProperty.propertyAddress}</p>
-                          <p className="text-red-500 font-medium">{formatPrice(relatedProperty.propertyPrice) || 'Price on request'}</p>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </section>
-              )}
-            </motion.div>
-            
-            <motion.div 
-              className="order-1 lg:order-2 lg:col-span-1"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <aside className="sticky top-24">
-                <Tabs />
-                <ProjectDetailsCard property={property} agent={agent} isLoadingAgent={isLoadingAgent} />
-                <ContactForm property={property} />
-              </aside>
-            </motion.div>
-          </div>
-        </main>
-      </div>
+          <motion.div 
+            className="order-1 lg:order-2 lg:col-span-1"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <aside className="sticky top-24">
+              <Tabs />
+              <ProjectDetailsCard property={property} agent={agent} isLoadingAgent={isLoadingAgent} />
+              <ContactForm property={property} />
+            </aside>
+          </motion.div>
+        </div>
+      </main>
       <Footer />
-    </>
+    </Box>
   );
 };
