@@ -1,0 +1,230 @@
+'use client';
+
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { 
+  Home, 
+  Utensils, 
+  Music, 
+  Dumbbell, 
+  Wifi,
+  Shield,
+  Droplet,
+  ParkingSquare,
+  Smartphone,
+  Leaf,
+  ShoppingCart,
+  BookOpen,
+  Building,
+  Heart,
+  Plane,
+  Bike,
+  Bus,
+  ChevronDown,
+  ChevronUp,
+  CheckCircle
+} from 'lucide-react';
+
+// Enhanced icon mapping with available icons
+const featureIcons: Record<string, React.ReactNode> = {
+  'Restaurant': <Utensils className="text-red-500" size={24} />,
+  'Clubhouse': <Home className="text-red-500" size={24} />,
+  'Gym': <Dumbbell className="text-red-500" size={24} />,
+  'Spa': <Droplet className="text-red-500" size={24} />,
+  'Entertainment': <Music className="text-red-500" size={24} />,
+  'Security': <Shield className="text-red-500" size={24} />,
+  'Parking': <ParkingSquare className="text-red-500" size={24} />,
+  'Smart Home': <Smartphone className="text-red-500" size={24} />,
+  'Wifi': <Wifi className="text-red-500" size={24} />,
+  'Swimming Pool': <Droplet className="text-red-500" size={24} />,
+  'Garden': <Leaf className="text-red-500" size={24} />,
+  'Shopping': <ShoppingCart className="text-red-500" size={24} />,
+  'School': <BookOpen className="text-red-500" size={24} />,
+  'Landmark': <Building className="text-red-500" size={24} />,
+  'Healthcare': <Heart className="text-red-500" size={24} />,
+  'Airport': <Plane className="text-red-500" size={24} />,
+  'Cycling': <Bike className="text-red-500" size={24} />,
+  'Public Transport': <Bus className="text-red-500" size={24} />
+};
+
+interface AboutSectionProps {
+  property: any;
+}
+
+export default function AboutSection({ property }: AboutSectionProps) {
+  const [showFullDescription, setShowFullDescription] = useState(false);
+  
+  // Get developer info
+  const developer = property?.developerName || 'Developer not specified';
+  const developerImage = property?.developerLogo;
+  
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+  
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 }
+  };
+  
+  return (
+    <motion.section 
+      className="bg-white rounded-[30px] shadow-sm overflow-hidden mb-8 p-8 border border-gray-150"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
+        <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+          <BookOpen className="text-red-500" size={24} />
+          About This Project
+        </h2>
+        
+        {/* Developer Logo/Name - Now beside the title */}
+        {(developerImage || developer) && (
+          <div className="flex items-center gap-3 mt-3 md:mt-0 flex-shrink-0">
+            {developerImage ? (
+              <div className="flex items-center gap-3">
+                <div className="w-24 rounded-lg overflow-hidden border border-gray-100 p-1 relative bg-white">
+                  <img 
+                    src={developerImage}
+                    alt={`${developer} logo`}
+                    className="w-full h-8 object-contain"
+                  />
+                </div>
+              </div>
+            ) : developer && developer !== 'Developer not specified' ? (
+              <div className="flex items-center gap-3">
+                <div className="bg-red-50 p-2 rounded-lg text-red-500">
+                  <Building size={18} />
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-900 text-sm">{developer}</p>
+                </div>
+              </div>
+            ) : null}
+          </div>
+        )}
+      </div>
+      
+      {/* Image - Moved before description */}
+      {property?.propertyFeaturedImage && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="overflow-hidden rounded-xl mb-8 shadow-md border border-gray-100"
+        >
+          <img
+            src={property.propertyFeaturedImage}
+            alt="Property overview"
+            className="w-full h-[300px] md:h-[400px] object-cover hover:scale-105 transition-transform duration-700"
+          />
+        </motion.div>
+      )}
+      
+      {/* Description */}
+      {property?.propertyDescription && (
+        <div className="relative mb-8 text-sm md:text-base">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+          >
+            <div className={showFullDescription ? '' : 'max-h-[150px] overflow-hidden relative'}>
+              <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+                {showFullDescription ? property.propertyDescription : property.propertyDescription.substring(0, 300) + '...'}
+              </p>
+              
+              {!showFullDescription && property.propertyDescription.length > 300 && (
+                <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
+              )}
+            </div>
+            
+            {property.propertyDescription && property.propertyDescription.length > 300 && (
+              <motion.button 
+                onClick={() => setShowFullDescription(!showFullDescription)}
+                className="flex items-center gap-1 text-red-650 font-semibold mt-4 hover:text-red-700 transition-colors"
+              >
+                {showFullDescription ? (
+                  <>
+                    <ChevronUp size={18} />
+                    <span>Read Less</span>
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown size={18} />
+                    <span>Read More</span>
+                  </>
+                )}
+              </motion.button>
+            )}
+          </motion.div>
+        </div>
+      )}
+      
+      {/* Features */}
+      {property?.features?.length > 0 && (
+        <div className="mb-8">
+          <h3 className="text-xl font-bold text-gray-800 mb-6">Key Features & Amenities</h3>
+          <motion.div 
+            variants={containerVariants} 
+            initial="hidden" 
+            animate="visible" 
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 mt-6"
+          >
+            {property.features.map((feature: string, index: number) => (
+              <motion.div 
+                key={index} 
+                variants={itemVariants}
+                className="flex items-start gap-2 group p-3 rounded-xl hover:bg-red-50/50 transition-all border border-transparent hover:border-red-300"
+              >
+                <div className="bg-red-50 p-2 rounded-lg text-red-500 group-hover:bg-red-100 transition-colors">
+                  {featureIcons[feature] || <CheckCircle size={18} />}
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-850 group-hover:text-red-600 transition-colors text-sm md:text-base">{feature}</h4>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      )}
+      
+      {/* Project Highlights */}
+      {property?.highlights?.length > 0 && (
+        <div className="mt-10 mb-8">
+          <h3 className="text-xl font-bold text-gray-800 mb-6">Project Highlights</h3>
+          <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-6 shadow-sm border border-gray-100">
+            <motion.ul 
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="space-y-4"
+            >
+              {property.highlights.map((highlight: string, index: number) => (
+                <motion.li 
+                  key={index}
+                  variants={itemVariants}
+                  className="flex items-start gap-3 hover:bg-white/80 p-2 rounded-lg transition-colors text-sm md:text-base"
+                >
+                  <div className="bg-red-100 p-1 rounded-full text-red-655 mt-1">
+                    <CheckCircle size={16} />
+                  </div>
+                  <span className="text-gray-700">{highlight}</span>
+                </motion.li>
+              ))}
+            </motion.ul>
+          </div>
+        </div>
+      )}
+    </motion.section>
+  );
+}

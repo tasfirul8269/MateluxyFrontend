@@ -176,6 +176,32 @@ export const api = {
             console.error('Error fetching developers:', error);
             return [];
         }
+    },
+
+    getPropertyById: async (id: string): Promise<Property | null> => {
+        try {
+            const res = await fetch(`${BASE_URL}/properties/${id}`, {
+                next: { revalidate: 60 },
+            });
+            if (!res.ok) throw new Error('Failed to fetch property details');
+            return res.json();
+        } catch (error) {
+            console.error('Error fetching property by ID:', error);
+            return null;
+        }
+    },
+
+    getOffPlanPropertyById: async (id: string): Promise<OffPlanProperty | null> => {
+        try {
+            const res = await fetch(`${BASE_URL}/off-plan-properties/${id}`, {
+                next: { revalidate: 60 },
+            });
+            if (!res.ok) throw new Error('Failed to fetch off-plan property details');
+            return res.json();
+        } catch (error) {
+            console.error('Error fetching off-plan property by ID:', error);
+            return null;
+        }
     }
 };
 
