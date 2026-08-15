@@ -29,6 +29,7 @@ export const PropertiesSection = () => {
                 if (activeTab === 'Off Plan') {
                     const res = await api.getOffPlanProperties({ limit: 6, sortBy: 'price', sortOrder: 'desc' });
                     data = res.map((p: OffPlanProperty) => ({
+                        id: (p as any)._id || p.id,
                         image: p.coverPhoto || '/Image/property.png', // Fallback image
                         title: p.projectTitle || 'Untitled Project',
                         address: p.address || 'Dubai, UAE',
@@ -72,6 +73,7 @@ export const PropertiesSection = () => {
                         };
 
                         return {
+                            id: (p as any)._id || p.id,
                             image: p.coverPhoto || '/Image/property.png',
                             title: p.propertyTitle || 'Untitled Property',
                             address: getAddress(),

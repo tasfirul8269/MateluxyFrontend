@@ -424,6 +424,7 @@ export const LocationsSection = ({
                                         {locationProperties.map((prop) => (
                                             <PropertyCard
                                                 key={prop.id}
+                                                id={(prop as any)._id || prop.id}
                                                 image={prop.coverPhoto || '/Image/property.png'}
                                                 title={prop.propertyTitle || 'Untitled Property'}
                                                 address={prop.address || selectedLocation?.name || ''}
